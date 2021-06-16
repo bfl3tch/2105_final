@@ -5,4 +5,8 @@ class TrainYard
     @location = info[:location]
     @trains = []
   end
+
+  def add_train(train)
+    @trains << train
+  end
 end
