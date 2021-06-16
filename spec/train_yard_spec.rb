@@ -15,6 +15,7 @@ RSpec.describe TrainYard do
       train_yard = TrainYard.new({location: 'Brighton'})
 
       expect(train_yard.location).to eq('Brighton')
+      expect(train_yard.trains).to eq([])
     end
   end
 end
