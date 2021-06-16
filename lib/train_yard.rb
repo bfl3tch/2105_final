@@ -33,56 +33,35 @@ class TrainYard
   end
 
   def total_inventory
-    result = Hash.new(0)
-    @trains.each do |train|
-      train.cargo.each do |cargo, quant|
-        result[cargo] += quant
-      end
-    end
-    result
+  trains.each_with_object(Hash.new(0)) do |train, hash|
+    train.cargo.keys.each { |car| hash[car] += train.count_cars(car) }
   end
-  
-  # end
+end
+  # MY SOLUTION BELOW. REFACTOR FROM SCOTT ABOVE
+  # def total_inventory
   #   result = Hash.new(0)
   #   @trains.each do |train|
-  #     train.cargo.keys.each do |cargo|
-  #       train.cargo.values.sum
-  #       # require "pry"; binding.pry
-  #       # sum_up = train.cargo.values
-  #       # result[cargo] = sum_up.sum
-  #       #
-  #       # result = { cargo =>
-  #       #
-  #       # }
-  #
-  #       # require "pry"; binding.pry
-  #
-  #       #cargo is array, first value is car, second is quant
-  #
-  #
-  #   # #new hash, keys are cars
-  #   # #values are the quantity of the specific cars
-  #   # @trains.each do |train|
-  #   #   train.cargo.each do |cargo|
-  #   #     cargo.each do |car|
-  #   #   require "pry"; binding.pry
-  #         # result[car] = 0
-  #         # sum << cargo.last
-  #         #key is set as the car, need to
-          #iterate through cars that match and
-          #pull out values, sum them
-
-
-        # end
-    #   end
-    # end
+  #     train.cargo.each do |cargo, quant|
+  #       result[cargo] += quant
+  #     end
+  #   end
   #   result
   # end
+  #
 
-  # def overflow_cars
-  #   total_inventory.find_all do |car, quantity|
-  #     @trains.include?(car) == false
-  #   end
-  # end
+  def trains_containing(car)
+    @trains.find_all do |train|
+      train.cargo.keys.include?(car)
+    end
+  end
 
+  def overflow_cars
+    cars = []
+      total_inventory.find_all do |car, quantity|
+        if (quantity > 10) && (trains_containing(car).length > 1)
+          cars << car
+        end
+      end
+    cars
+  end
 end
