@@ -158,7 +158,7 @@ RSpec.describe TrainYard do
       expect(train_yard.total_inventory).to eq(expected)
     end
 
-    it 'can show all overflow cars not in inventory' do
+    xit 'can show all overflow cars not in inventory' do
       train_yard = TrainYard.new({location: 'Brighton'})
       car1 = Car.new({type: 'Mail', weight: 5})
       car2 = Car.new({type: 'Passengers', weight: 1})
